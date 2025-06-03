@@ -16,7 +16,7 @@ app.use('/carrito', express.static(carpetaCarrito));
 
 const cors = require("cors");
 app.use(cors({
-  origin: 'https://agreeable-pond-02212370f.6.azurestaticapps.net/', // Permite acceder al fronent
+  origin: 'https://blue-pebble-0e86f730f.6.azurestaticapps.net/', // Permite acceder al fronent
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'], // Esencial para tokens
 }));
