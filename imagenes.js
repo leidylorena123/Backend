@@ -15,8 +15,13 @@ const carpetaCarrito = path.join(__dirname, '..', 'carrito');
 app.use('/carrito', express.static(carpetaCarrito));
 
 const cors = require("cors");
-app.use(cors());
-app.use(express.json()); 
+app.use(cors({
+  origin: 'https://agreeable-pond-02212370f.6.azurestaticapps.net/', // Permite acceder al fronent
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Esencial para tokens
+}));
+
+app.options('*', cors());app.use(express.json()); 
 
 app.set("port", process.env.PORT || 5013);
 
