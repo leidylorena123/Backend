@@ -43,7 +43,7 @@ app.use(conn(mysql, dbConfig, 'single'));
 app.use('/', imageRoutes);
 app.use('/', userRoutes); 
 app.use('/', facturaRoutes); 
-app.use('/', devolucionRoutes);
+app.use('/api', devolucionRoutes);
 app.use('/', RecuperarRoutes);
 app.use('/', SolicitudRoutes);
 
