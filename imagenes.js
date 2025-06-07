@@ -11,7 +11,8 @@ const devolucionRoutes = require('./routes/devolucion.routes');
 const RecuperarRoutes = require('./routes/recuperar.routes');
 const SolicitudRoutes = require ('./routes/solicitud.routes')
 
-const carpetaCarrito = path.join(__dirname, '..', 'carrito');
+const carpetaCarrito = path.join(__dirname, 'carrito');
+
 app.use('/carrito', express.static(carpetaCarrito));
 
 app.use(express.json()); 
@@ -48,8 +49,6 @@ app.use('/', devolucionRoutes);
 app.use('/', RecuperarRoutes);
 app.use('/', SolicitudRoutes);
 
-const path = require('path');
-app.use('/carrito', express.static(path.join(__dirname, 'carrito')));
 
 app.listen(app.get('port'), () => {
     console.log("✅ Servidor funcionando por el puerto", app.get("port"));
