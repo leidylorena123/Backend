@@ -27,7 +27,7 @@ exports.uploadFile = (req, res) => {
 
         const values = req.files.map(file => [req.params.tabla, file.mimetype, file.filename]);
 
-        const query = "INSERT INTO ?? (id, tipo, nombre) VALUES ?";
+        const query = "INSERT INTO ?? (id, tipo, nombre_producto) VALUES ?";
         conn.query(query, [req.params.tabla, values], (err, rows) => {
             if (err) {
                 console.error("Error en la consulta:", err);
@@ -45,15 +45,15 @@ exports.getProductos = (req, res) => {
             return res.status(500).json({ error: "Error en la conexión a la base de datos" });
         }
 
-        conn.query("SELECT id, nombre FROM carrito", (err, results) => {
+        conn.query("SELECT id, nombre_producto FROM carrito", (err, results) => {
             if (err) {
                 console.error("Error al consultar productos:", err);
                 return res.status(500).json({ error: "Error al obtener productos" });
             }
 
             const productos = results.map(producto => ({
-                nombre: producto.nombre,
-                imagen: producto.nombre,
+                nombre: producto.nombre_producto,
+                imagen: producto.nombre_producto,
             
             }));
 
