@@ -20,10 +20,9 @@ app.use(express.json());
 const cors = require("cors");
 
 app.use(cors({
-  origin: 'https://TU-FRONTEND.azurewebsites.net', 
+  origin: 'https://blue-pebble-0e86f730f.6.azurestaticapps.net/',
   credentials: true
 }));
-
 
 app.set("port", process.env.PORT || 5013);
 
