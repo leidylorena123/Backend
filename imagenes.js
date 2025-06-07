@@ -14,14 +14,15 @@ const SolicitudRoutes = require ('./routes/solicitud.routes')
 const carpetaCarrito = path.join(__dirname, '..', 'carrito');
 app.use('/carrito', express.static(carpetaCarrito));
 
+app.use(express.json()); 
+
 const cors = require("cors");
+
 app.use(cors({
-  origin: 'https://blue-pebble-0e86f730f.6.azurestaticapps.net/', // Permite acceder al fronent
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Esencial para tokens
+  origin: 'https://TU-FRONTEND.azurewebsites.net', 
+  credentials: true
 }));
 
-app.options('*', cors());app.use(express.json()); 
 
 app.set("port", process.env.PORT || 5013);
 
@@ -43,7 +44,7 @@ app.use(conn(mysql, dbConfig, 'single'));
 app.use('/', imageRoutes);
 app.use('/', userRoutes); 
 app.use('/', facturaRoutes); 
-app.use('/api', devolucionRoutes);
+app.use('/', devolucionRoutes);
 app.use('/', RecuperarRoutes);
 app.use('/', SolicitudRoutes);
 
