@@ -48,6 +48,9 @@ app.use('/', devolucionRoutes);
 app.use('/', RecuperarRoutes);
 app.use('/', SolicitudRoutes);
 
+const path = require('path');
+app.use('/carrito', express.static(path.join(__dirname, 'carrito')));
+
 app.listen(app.get('port'), () => {
     console.log("✅ Servidor funcionando por el puerto", app.get("port"));
 });
