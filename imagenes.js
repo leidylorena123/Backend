@@ -20,7 +20,18 @@ app.use(express.json());
 const cors = require("cors");
 
 app.use(cors({
-  origin: 'https://blue-pebble-0e86f730f.6.azurestaticapps.net/',
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://blue-pebble-0e86f730f.6.azurestaticapps.net/',
+      'http://localhost:3000/' // opcional para desarrollo local
+    ];
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
