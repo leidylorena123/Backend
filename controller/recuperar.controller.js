@@ -31,7 +31,7 @@ exports.recoverPassword = (req, res) => {
 
     tokenStore[token] = email;
 
-    const recoveryLink = `http://localhost:3002/ResetPassword?token=${token}`;
+    const recoveryLink = `https://blue-pebble-0e86f730f.6.azurestaticapps.net/ResetPassword?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
