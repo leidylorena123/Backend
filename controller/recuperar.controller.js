@@ -1,4 +1,3 @@
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../conexion');
@@ -6,6 +5,9 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const tokenStore = {};
+
+// 🔵 Variable con la URL del frontend
+const FRONTEND_URL = 'https://blue-pebble-0e86f730f.6.azurestaticapps.net';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -17,12 +19,13 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false,
   },
 });
+
 exports.recoverPassword = (req, res) => {
   const { email } = req.body;
 
   db.query('SELECT * FROM usuarios WHERE correo = ?', [email], (err, results) => {
     if (err) return res.status(500).json({ message: 'Error en la base de datos', error: err });
-    
+
     if (results.length === 0) {
       return res.status(400).json({ message: 'No se encontró un usuario con ese correo' });
     }
@@ -31,7 +34,8 @@ exports.recoverPassword = (req, res) => {
 
     tokenStore[token] = email;
 
-    const recoveryLink = `https://blue-pebble-0e86f730f.6.azurestaticapps.net/ResetPassword?token=${token}`;
+    // 🔗 Usamos la URL del frontend en el enlace
+    const recoveryLink = `${FRONTEND_URL}/ResetPassword?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -50,7 +54,6 @@ exports.recoverPassword = (req, res) => {
   });
 };
 
-  
 exports.resetPassword = async (req, res) => {
   const { token, newPassword } = req.body;
 
@@ -69,7 +72,7 @@ exports.resetPassword = async (req, res) => {
 
     db.query('SELECT * FROM usuarios WHERE correo = ?', [email], async (err, results) => {
       if (err) return res.status(500).json({ message: 'Error en la base de datos', error: err });
-      
+
       if (results.length === 0) {
         return res.status(400).json({ message: 'Usuario no encontrado' });
       }
