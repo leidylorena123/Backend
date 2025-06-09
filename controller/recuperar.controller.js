@@ -31,7 +31,7 @@ exports.recoverPassword = (req, res) => {
 
     tokenStore[token] = email;
 
-    const recoveryLink = `http://localhost:3000/ResetPassword?token=${token}`;
+    const recoveryLink = `http://localhost:3002/ResetPassword?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
